@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  app_frontend:
+    # image: node:lts
+    build:
+      context: .
+      dockerfile: frontend_dockerfile/Dockerfile
+    container_name: app_frontend
+    hostname: app_frontend
+    networks:
+      app_network:
+        aliases:
+          - app_frontend
+    # command: tail -f /dev/null # aby kontener nie zamykał się "exited" po starcie (przydatne jesli nie chcemy uruchamiac zadengo konkretnego skryptu)
+    ports:
+      - 4995:5173 # port hosta : port kontenera, jesli chcemy sie komunikowac miedzy kontenerami to komunikacja z kontera innego do tego bedzie wymagala podania app_frontend:5173, a z hosta do kontenera localhost:4995
+    volumes:
+      - ./frontend:/usr/games/app # to zostanie skopiowane po wykonaniu pliku frontend_dockerfile/Dockerfile, ustanawa to polaczenie miedzy kontenerem a naszym lokalnym folderem, zmiany w plikach lokalnych beda widoczne w kontenerze i odwrotnie
+      - /usr/games/app/app-vite/node_modules # Dlatego zachowujemy node_modules za pomocą volumes (tworzymy je w frontend_dockerfile/Dockerfile podczas npm install)
+      
+      # zeby miec aktualne node_modules musimy skopiowac za pomoca komendy => docker cp $(docker-compose ps -q <service_name>):/path/to/test.txt (space) /my/local/directory
+      # w tym przypadku => docker cp $(docker-compose ps -q app_frontend):/usr/games/app/app-vite/node_modules/ frontend/app-vite/
+      # komende wykonujemy z terminala ustawionego na poziomie folderu zawierajacego docker-compose.yml => tutaj dominikjakobsze@MacBook-DJ playground %
+  
+  # app_frontend_2:
+  #   build:
+  #     context: .
+  #     dockerfile: frontend_dockerfile/Dockerfile
+  #   container_name: app_frontend_2
+  #   hostname: app_frontend_2
+  #   networks:
+  #     app_network:
+  #       aliases:
+  #         - app_frontend_2
+  #   ports:
+  #     - 5005:5173
+  #   volumes:
+  #     - ./frontend:/usr/games/app 
+  #     - /usr/games/app/app-vite/node_modules
+      
+networks:
+  app_network:
+    driver: bridge
+# testowanie czy siec dziala miedzy kontenerami
+# docker-compose exec app_frontend curl app_frontend:5173 // do samego siebie
+# docker-compose exec app_frontend_2 curl app_frontend:5173 // z app_frontend_2 do app_frontend:5173 (miedzy kontenerami)
+# docker-compose exec app_frontend_2 curl app_frontend_2:5173 // do samego siebie
+# docker-compose exec app_frontend_2 curl app_frontend:5173 // z app_frontend_2 do app_frontend:5173 (miedzy kontenerami)
+# dokonczyc to

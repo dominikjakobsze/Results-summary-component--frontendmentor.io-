@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.cp-1 {
+    clip-path: ellipse(63% 57% at 49% 32%);
+}
+
+.td-1 {
+    border-bottom: 2px solid #3bf16f;
+}
+
+.multiline-truncate-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
