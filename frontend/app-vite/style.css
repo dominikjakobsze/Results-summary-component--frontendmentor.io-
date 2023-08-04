@@ -16,3 +16,8 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.bg-gradient-1{
+    background: rgb(45,184,253);
+    background: linear-gradient(0deg, rgba(45,184,253,1) 31%, rgba(34,88,195,1) 81%);
+}
