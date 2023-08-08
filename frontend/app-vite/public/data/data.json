@@ -9,16 +9,22 @@
   {
     "category": "Memory",
     "score": 92,
+    "bgcolorclass": "bg-[rgb(255,250,242)]",
+    "textcolorclass": "text-orange-300",
     "icon": "../images/icon-memory.svg"
   },
   {
     "category": "Verbal",
     "score": 61,
+    "bgcolorclass": "bg-[rgb(255,250,242)]",
+    "textcolorclass": "text-orange-300",
     "icon": "../images/icon-verbal.svg"
   },
   {
     "category": "Visual",
     "score": 72,
+    "bgcolorclass": "bg-[rgb(255,250,242)]",
+    "textcolorclass": "text-orange-300",
     "icon": "../images/icon-visual.svg"
   }
 ]
