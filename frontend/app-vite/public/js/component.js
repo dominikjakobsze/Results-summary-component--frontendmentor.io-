@@ -2,14 +2,13 @@ import data from "../data/data.json";
 import DOMPurify from 'dompurify';
 
 const errorHandler = (message) => {
-    console.log("score is not a number");
     //optional: write your logic here to inform user about the error before stopping the execution of the script
     throw new Error(message);
 };
 
 const formatDataPoints = (data) => {
     return data.reduce((acc, curr) => {
-        if (Number(curr.score) == NaN) {
+        if (isNaN(Number(curr.score))) {
             errorHandler("Score is not a number - data is corrupted");
         }
         return acc + curr.score;
