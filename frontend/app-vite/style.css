@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html,body {
+    background-color: rgb(246, 246, 246);
+}
+
 .cp-1 {
     clip-path: ellipse(63% 57% at 49% 32%);
 }
